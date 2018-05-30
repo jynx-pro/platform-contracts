@@ -9,10 +9,10 @@ def run():
 
     print()
 
-    c = Contract(os.path.abspath('') + "/dist")
-    c.deploy()
+    contract = Contract(os.path.abspath('') + "/dist")
+    contract.deploy()
 
-    # c.push_action("create", '{"issuer":"eosio", "maximum_supply":"1000000000.0000 EOS", "can_freeze":0, "can_recall":0, "can_whitelist":0}')
+    contract.push_action("hi", '{"user":"fred"}')
     
     # c.push_action("issue", '{"to":"alice", "quantity":"100.0000 EOS", "memo":"memo"}', sess.eosio)
 
