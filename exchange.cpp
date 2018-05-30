@@ -7,20 +7,24 @@
 using namespace eosio;
 using std::string;
 
-class exchange : public eosio::contract {
-    public:
-        using contract::contract;
+namespace eosio {
 
-        void hi(account_name user) {
-            print("Hello, ", name{user});
-        }
-        
-    private:
-        struct order {
-            account_name    owner;
-            asset           quantity;
-            uint64_t        filled;
-        };
-};
+    class exchange : public contract {
+        private:
+            struct order {
+                asset       symbol;
+                bool        buy;
+                int64_t     filled;
+                EOSLIB_SERIALIZE(order, (symbol)(buy)(filled))
+            };
 
-EOSIO_ABI(exchange, (hi))
+        public:
+            using contract::contract;
+
+            void limitorder(const order& o) {}
+            void marketorder(const order& o) {}
+            void cancelorder(const uint64_t id) {}
+    };
+}
+
+EOSIO_ABI(exchange, (limitorder)(cancelorder)(marketorder))
