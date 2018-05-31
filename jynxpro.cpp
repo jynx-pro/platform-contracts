@@ -2,14 +2,14 @@
  *  @file
  *  @copyright defined in eos/LICENSE.txt
  */
-#include <exchange.hpp>
+#include <jynxpro.hpp>
 
 using namespace eosio;
 using std::string;
 
 namespace eosio {
 
-    class exchange : public contract {
+    class jynxpro : public contract {
         private:
             struct deposit {
                 uint64_t        id;
@@ -96,4 +96,4 @@ namespace eosio {
     };
 }
 
-EOSIO_ABI(exchange, (limitorder)(cancelorder)(marketorder)(deposit)(withdraw))
+EOSIO_ABI(jynxpro, (limitorder)(cancelorder)(marketorder)(deposit)(withdraw))

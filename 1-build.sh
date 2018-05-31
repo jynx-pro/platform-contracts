@@ -1,4 +1,4 @@
 rm -rf dist
 mkdir dist
-eosiocpp -o dist/exchange.wast exchange.cpp
-eosiocpp -g dist/exchange.abi exchange.cpp
+eosiocpp -o dist/jynxpro.wast jynxpro.cpp
+eosiocpp -g dist/jynxpro.abi jynxpro.cpp

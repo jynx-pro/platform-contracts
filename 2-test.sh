@@ -1,1 +1,1 @@
-python3 tests/exchange.py
+python3 tests/jynxpro.py
