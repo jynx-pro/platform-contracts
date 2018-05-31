@@ -17,18 +17,18 @@ namespace eosio {
                 account_name    owner;
                 long            submitted;
                 long            confirmed;
-                auto            primary_key() { return id ;}
+                auto            primary_key() { return id; }
                 EOSLIB_SERIALIZE(deposit, (id)(symbol)(owner)(submitted)(confirmed))
             };
 
-            struct withdrawl {
+            struct withdrawal {
                 uint64_t        id;
                 asset           symbol;
                 account_name    owner;
                 long            submitted;
                 long            approved;
                 long            confirmed;
-                auto            primary_key() { return id ;}
+                auto            primary_key() { return id; }
                 EOSLIB_SERIALIZE(withdrawal, (id)(symbol)(owner)(submitted)(approved)(confirmed))
             };
 
@@ -36,7 +36,7 @@ namespace eosio {
                 uint64_t        id;
                 account_name    owner;
                 uint64_t        amount;
-                auto            primary_key() { return id ;}
+                auto            primary_key() { return id; }
                 EOSLIB_SERIALIZE(collateral, (id)(owner)(amount))
             };
 
@@ -44,7 +44,7 @@ namespace eosio {
                 uint64_t        id;
                 asset           symbol;
                 bool            suspended;
-                auto            primary_key() { return id ;}
+                auto            primary_key() { return id; }
                 EOSLIB_SERIALIZE(market, (id)(symbol)(suspended))
             };
 
@@ -55,7 +55,7 @@ namespace eosio {
                 uint64_t        price;
                 long            datetime;
                 account_name    owner;
-                auto            primary_key() { return id ;}
+                auto            primary_key() { return id; }
                 EOSLIB_SERIALIZE(trade, (id)(order_id)(quantity)(price)(datetime)(owner))
             };
 
@@ -69,7 +69,7 @@ namespace eosio {
                 long            submitted;
                 long            fulfilled;
                 account_name    owner;
-                auto            primary_key() { return id ;}
+                auto            primary_key() { return id; }
                 asset           get_symbol() { return symbol; }
                 bool            get_buy() { return buy; }
                 EOSLIB_SERIALIZE(order, (id)(symbol)(price)(buy)(filled)(expires)(submitted)(fulfilled)(owner))
@@ -79,7 +79,7 @@ namespace eosio {
             typedef multi_index<N(trade), trade> trades;
             typedef multi_index<N(market), market> markets;
             typedef multi_index<N(collateral), collateral> all_collateral;
-            typedef multi_index<N(withdrawl), withdrawl> withdrawls;
+            typedef multi_index<N(withdrawl), withdrawal> withdrawls;
             typedef multi_index<N(deposit), deposit> deposits;
 
         public:
