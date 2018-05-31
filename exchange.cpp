@@ -11,49 +11,89 @@ namespace eosio {
 
     class exchange : public contract {
         private:
+            struct deposit {
+                uint64_t        id;
+                asset           symbol;
+                account_name    owner;
+                long            submitted;
+                long            confirmed;
+                auto            primary_key() { return id ;}
+                EOSLIB_SERIALIZE(deposit, (id)(symbol)(owner)(submitted)(confirmed))
+            };
+
+            struct withdrawl {
+                uint64_t        id;
+                asset           symbol;
+                account_name    owner;
+                long            submitted;
+                long            approved;
+                long            confirmed;
+                auto            primary_key() { return id ;}
+                EOSLIB_SERIALIZE(withdrawal, (id)(symbol)(owner)(submitted)(approved)(confirmed))
+            };
+
             struct collateral {
-                // TODO - this will store collateral for each public key
-            }
+                uint64_t        id;
+                account_name    owner;
+                uint64_t        amount;
+                auto            primary_key() { return id ;}
+                EOSLIB_SERIALIZE(collateral, (id)(owner)(amount))
+            };
 
             struct market {
-                // TODO - this will be a list of supported futures markets
-            }
+                uint64_t        id;
+                asset           symbol;
+                bool            suspended;
+                auto            primary_key() { return id ;}
+                EOSLIB_SERIALIZE(market, (id)(symbol)(suspended))
+            };
 
             struct trade {
                 uint64_t        id;
                 uint64_t        order_id;
                 uint64_t        quantity;
-                double          price;
+                uint64_t        price;
                 long            datetime;
                 account_name    owner;
+                auto            primary_key() { return id ;}
                 EOSLIB_SERIALIZE(trade, (id)(order_id)(quantity)(price)(datetime)(owner))
-            }
+            };
 
             struct order {
                 uint64_t        id;
                 asset           symbol;
-                double          price;
+                uint64_t        price;
                 bool            buy;
                 uint64_t        filled;
                 long            expires;
                 long            submitted;
                 long            fulfilled;
                 account_name    owner;
+                auto            primary_key() { return id ;}
+                asset           get_symbol() { return symbol; }
+                bool            get_buy() { return buy; }
                 EOSLIB_SERIALIZE(order, (id)(symbol)(price)(buy)(filled)(expires)(submitted)(fulfilled)(owner))
             };
+
+            typedef multi_index<N(order), order> orders;
+            typedef multi_index<N(trade), trade> trades;
+            typedef multi_index<N(market), market> markets;
+            typedef multi_index<N(collateral), collateral> all_collateral;
+            typedef multi_index<N(withdrawl), withdrawl> withdrawls;
+            typedef multi_index<N(deposit), deposit> deposits;
 
         public:
             using contract::contract;
 
-            void limitorder(asset a, double price, bool buy) {}
-            void marketorder(asset a, bool buy) {}
-            void cancelorder(const uint64_t id) {}
-            void depositcollateral() {}
-            void withdrawcollateral() {}
+            void limitorder(asset symbol, uint64_t price, bool buy) {}
+            void marketorder(asset symbol, bool buy) {}
+            void cancelorder(uint64_t id) {}
+            void deposit() {}
+            void withdraw() {}
 
             // NOTE - every time there's a trade we need to recalculate the margin on all open positions
             // Cont: we might have to do some indexing here to prevent performance hits when opening trades
     };
 }
 
-EOSIO_ABI(exchange, (limitorder)(cancelorder)(marketorder)(depositmargin)(withdrawmargin))
+EOSIO_ABI(exchange, (limitorder)(cancelorder)(marketorder)(deposit)(withdraw))

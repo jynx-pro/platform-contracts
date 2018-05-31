@@ -14,14 +14,19 @@ def run():
 
     # TODO - need to make sure the token exists that we plan to trade
 
-    print("Can submit limit order")
-    contract.push_action("limitorder", '{"o":{"symbol":"100 EOS","buy":true,"filled":0}}')
+    # print("Can submit limit order")
+    # contract.push_action("limitorder", '{"o":{"symbol":"100 EOS","buy":true,"filled":0}}')
     
-    print("Can submit market order")
-    contract.push_action("marketorder", '{"o":{"symbol":"100 EOS","buy":true,"filled":0}}')
+    # print("Can submit market order")
+    # contract.push_action("marketorder", '{"o":{"symbol":"100 EOS","buy":true,"filled":0}}')
     
-    print("Can cancel order")
-    contract.push_action("cancelorder", '{"id":0}')
+    # print("Can cancel order")
+    # contract.push_action("cancelorder", '{"id":0}')
+    
+
+
+
+
     
     # c.push_action("issue", '{"to":"alice", "quantity":"100.0000 EOS", "memo":"memo"}', sess.eosio)
 
